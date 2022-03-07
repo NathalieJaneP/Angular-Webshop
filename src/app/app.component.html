@@ -1,0 +1,8 @@
+<nav>
+    <ul>
+        <li><a routerLink="/" [routerLinkActive]="['active-tab']" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+        <li><a routerLink="/products" [routerLinkActive]="['active-tab']">Products</a></li>
+        <li><a routerLink="/cart" [routerLinkActive]="['active-tab']">Cart</a></li>
+    </ul>
+</nav>
+<router-outlet></router-outlet>
