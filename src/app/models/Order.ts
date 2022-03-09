@@ -1,3 +1,5 @@
+import { OrderRows } from "./OrderRows";
+
 export class Order {
     id: number;
     companyId: number = 36;
@@ -7,20 +9,13 @@ export class Order {
     totalPrice: number;
     status: number;
     orderRows: OrderRows[];
+
+    // constructor(created: Date, createdBy: string, paymentMethod: string, orderRows: OrderRows[]) {
+    //     this.created = created;
+    //     this.createdBy = createdBy;
+    //     this.paymentMethod = paymentMethod;
+    //     this.orderRows = orderRows
+    // }
 }
 
-//Dela upp i egen fil
-export class OrderRows {
-    id: number;
-    productId: number;
-    product: string;
-    amount: number;
-    orderId: number;
 
-    constructor(id: number, productId: number, product: null, amount: number, orderId: number) {
-        this.id = id;
-        this.productId = productId;
-        this.amount = amount;
-        this.orderId = orderId;
-    }
-}

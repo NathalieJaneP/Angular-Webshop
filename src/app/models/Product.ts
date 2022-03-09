@@ -1,4 +1,4 @@
-import { ICategory } from "./ICategory";
+import { Category } from "./Category";
 
 export class Product {
     id: number;
@@ -6,14 +6,16 @@ export class Product {
     description: string;
     price: number;
     imageUrl: string;
-    productCategory: ICategory[]
+    productCategory: Category[]
+    quantity: number;
 
-    constructor(Id: number, Name: string, Description: string, Price: number, ImageUrl: string, ProductCategory: ICategory[]) {
+    constructor(Id: number, Name: string, Description: string, Price: number, ImageUrl: string, ProductCategory: Category[], quantity: number) {
         this.id = Id;
         this.name = Name;
         this.description = Description;
         this.price = Price;
         this.imageUrl = ImageUrl;
         this.productCategory = ProductCategory;
+        this.quantity = quantity;
     }
 }

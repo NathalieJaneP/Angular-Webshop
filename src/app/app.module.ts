@@ -10,6 +10,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     CartComponent,
     NotfoundComponent,
     CheckoutComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

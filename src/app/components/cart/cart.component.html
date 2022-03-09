@@ -1,5 +1,8 @@
 <div *ngIf="true" class="card-table">
-    <div class="cart-product">
+    <div *ngIf="cart.length === 0">
+        Your cart is empty.
+    </div>
+    <div *ngIf="cart.length > 0" class="cart-product">
         <table class="table table-responsive">
             <thead>
                 <tr>
@@ -19,13 +22,15 @@
                     <td><img src="{{item.imageUrl}}" alt="Product image" height="50px"></td>
                     <td>{{item.description}}</td>
                     <td>{{item.price | currency}}</td>
+                    <td>{{item.quantity}}</td>
                     <td>
                         <button (click)="removeCartItem(item)" class="btn btn-danger">Delete</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <p>Total Amount: {{sumTotal | currency}}</p>
+        <p>{{cartQty}}</p>
+        <p>Total Amount: {{sumTotal | currency }}</p>
         <button (click)="emptyCart()">Empty Cart</button>
         <button routerLink="/checkout">Checkout</button>
     </div>

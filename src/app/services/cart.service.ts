@@ -1,41 +1,49 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { IProduct } from '../models/IProduct';
+import { Product } from '../models/Product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  //TYPE IPRODUCT?
-  private cart: any = [];
+  //Byt namn till cartlist
+  private cart: Product[] = [];
 
   constructor() { }
+  //ta bort _
   _setLS() {
     localStorage.setItem('localCart', JSON.stringify(this.cart))
   }
 
+  _getLS() {
+    this.cart = JSON.parse(localStorage.getItem('localCart') || '[]');
+  }
+
   _getCart() {
-    if (JSON.parse(localStorage.getItem('localCart')!)) {
-      this.cart = JSON.parse(localStorage.getItem('localCart')!);
-    }
+    //samma sak va?
+    this._getLS();
     return this.cart;
   }
 
+  //Ta bort?
   _setCart(product: any) {
     this.cart.push(product);
-    this.cart = localStorage.getItem('localCart')
+    this._getLS();
     console.log(this.cart);
   }
 
-  _addToCart(item: any) {
-    this.cart.push(item);
-    console.log(this.cart);
+  _addToCart(product: Product) {
+    for (let item of this.cart) {
+      if (item.id === product.id) {
+        item.quantity += 1
+      }
+    }
 
-    // this.cart = JSON.parse(localStorage.getItem('localCart') || '{}')
+    this.cart.push({ ...product, quantity: 1 });
+    console.log(this.cart);
     this._setLS()
   }
 
-  //Tar endast bort sista index - ändra till specifikt index
+  //Bugg behöver fixas?Tar bort flera när samma id
   _removeCartItem(item: any) {
     this.cart.map((a: any, index: any) => {
       if (item.id === a.id) {
@@ -50,11 +58,12 @@ export class CartService {
     this.cart = [];
     console.log(this.cart);
     this._setLS();
+    return this.cart
   }
 
   _getTotalSum(): number {
     let totalSum: number = 0;
-    this.cart.map((item: any) => (totalSum += item.price))
+    this.cart.map((item: any) => (totalSum += item.price));
     return totalSum;
   }
 }

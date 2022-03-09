@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Order, OrderRows } from 'src/app/models/Order';
+import { Order } from 'src/app/models/Order';
+import { OrderRows } from 'src/app/models/OrderRows';
+import { Product } from 'src/app/models/Product';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -10,8 +12,9 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+
   order: Order = new Order();
-  items = this.cartService._getCart();
+  items: Product[] = this.cartService._getCart();
 
   //Lägg till required + fler alternativ
   checkoutForm = this.formBuilder.group({
@@ -29,16 +32,21 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    //New Order <= Form
+    //lägg till amount för samma film
+    this.order.orderRows = [];
+    for (let i = 0; i < this.items.length; i++) {
+      let orderInfo = new OrderRows(
+        this.items[i].id,
+        this.items[i].quantity);
+      this.order.orderRows.push(orderInfo)
+      console.log(orderInfo);
+    }
+
+    // New Order <= Form
     this.order.createdBy = this.checkoutForm.value.name;
     this.order.paymentMethod = this.checkoutForm.value.payment;
     this.order.totalPrice = this.cartService._getTotalSum();
-
-    this.order.orderRows = [];
-    this.items.map((item: any) => {
-      let row = new OrderRows(item.id, item.productId, null, item.amount, this.order.id)
-      this.order.orderRows.push(row)
-    });
+    console.log(this.order)
 
     this.orderService._postOrder(this.order)
       .subscribe(
@@ -48,9 +56,5 @@ export class CheckoutComponent implements OnInit {
 
     this.items = this.cartService._emptyCart();
     this.checkoutForm.reset();
-    console.log(this.checkoutForm);
   }
-
-
-
 }
