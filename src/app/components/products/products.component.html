@@ -1,11 +1,18 @@
+<!-- <div *ngFor="let category of categories">
+    <p>{{category.name}}</p>
+</div> -->
+
 <div class="container">
     <div *ngFor="let product of products" class="product-card">
-        <img src="{{product.imageUrl}}" alt="Product image">
-        <h5 [title]="product.name +' details'">
+        <h2 [title]="product.name +' details'">
             {{product.name}}
-        </h5>
+        </h2>
+        <img src="{{product.imageUrl}}" alt="Product image">
+        <p id="product-price">
+            {{product.price.toLocaleString('en-SE',{style:'currency', currency:'SEK'})}}
+        </p>
+        <button (click)=_addToCart(product)>Add to cart</button>
         <p>{{product.description}}</p>
-        <p>{{product.price | currency}}</p>
-        <button class="btn btn-primary" (click)=addToCart(product)>Add to cart</button>
+
     </div>
 </div>

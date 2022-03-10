@@ -10,60 +10,68 @@ export class CartService {
 
   constructor() { }
   //ta bort _
-  _setLS() {
+  setLS() {
     localStorage.setItem('localCart', JSON.stringify(this.cart))
   }
 
-  _getLS() {
+  getLS() {
     this.cart = JSON.parse(localStorage.getItem('localCart') || '[]');
   }
 
-  _getCart() {
-    //samma sak va?
-    this._getLS();
+  getCart() {
+    this.getLS();
     return this.cart;
   }
 
   //Ta bort?
   _setCart(product: any) {
     this.cart.push(product);
-    this._getLS();
+    this.getLS();
     console.log(this.cart);
   }
 
-  _addToCart(product: Product) {
-    for (let item of this.cart) {
-      if (item.id === product.id) {
-        item.quantity += 1
-      }
-    }
+  addToCart(product: Product) {
+    const productExist = this.cart
 
-    this.cart.push({ ...product, quantity: 1 });
+      .find((({ name }) => name === product.name));
+    if (!productExist) {
+      this.cart.push({ ...product, quantity: 1 });
+      return;
+    }
+    productExist.quantity += 1;
+
     console.log(this.cart);
-    this._setLS()
+    this.setLS()
   }
 
   //Bugg behöver fixas?Tar bort flera när samma id
-  _removeCartItem(item: any) {
+  removeCartItem(item: any) {
     this.cart.map((a: any, index: any) => {
       if (item.id === a.id) {
         this.cart.splice(index, 1);
       }
       console.log(a.id);
     })
-    this._setLS();
+    this.setLS();
   }
 
-  _emptyCart() {
-    this.cart = [];
-    console.log(this.cart);
-    this._setLS();
-    return this.cart
+  emptyCart() {
+
+    localStorage.removeItem('localCart');
+    return this.cart;
   }
 
-  _getTotalSum(): number {
+  getTotalSum(): number {
     let totalSum: number = 0;
-    this.cart.map((item: any) => (totalSum += item.price));
+    this.cart.map((item: any) => (totalSum += item.price * item.quantity));
     return totalSum;
+  }
+
+  getQty(): number {
+    let totalQty: number = 0;
+    this.cart.map((item: any) => {
+      totalQty += item.quantity
+    })
+    return totalQty;
   }
 }

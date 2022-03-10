@@ -1,20 +1,23 @@
-.container{
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-border: 1px solid #000;
-
-}
-
 .product-card{
-   width: 29%;
-   padding: 2%;
-   margin-bottom: 2%;
-   position: relative;
-   border: 1px solid #000;
-   justify-content: space-evenly;
+    width: 20%;
+    margin: 1%;
+    padding: 1%;
+    position: relative;
+    background: rgba(34, 44, 63, 0.4);
+    border-radius: 4px;
+    text-align: center;
+ 
+    img{
+     width: 70%;
+    }
+ 
+    p{
+     text-align: left;
+    }
+    
+    #product-price{
+     text-align: center;
+    }
+ }
 
-   img{
-       width: 80%;
-   }
-}
+

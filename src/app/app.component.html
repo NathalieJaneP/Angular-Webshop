@@ -1,12 +1,27 @@
-<nav>
-    <ul>
-        <li><a routerLink="/" [routerLinkActive]="['active-tab']" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
-        <li><a routerLink="/products" [routerLinkActive]="['active-tab']">Products</a></li>
-        <li><a routerLink="/cart" [routerLinkActive]="['active-tab']">Cart</a></li>
-        <li><a routerLink="/admin" [routerLinkActive]="['active-tab']">Admin</a></li>
-        <li>
-            <input type="text" placeholder="Search Movie">
-        </li>
-    </ul>
-</nav>
+<div id="header">
+    <nav>
+        <ul>
+            <li>
+                <a routerLink="/" [routerLinkActive]="['active-tab']" [routerLinkActiveOptions]="{exact:true}">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/products" [routerLinkActive]="['active-tab']">
+                    <i class="fa fa-film" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/cart" [routerLinkActive]="['active-tab']">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/admin" [routerLinkActive]="['active-tab']">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 <router-outlet></router-outlet>

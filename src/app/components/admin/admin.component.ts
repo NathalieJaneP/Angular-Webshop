@@ -9,18 +9,20 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class AdminComponent implements OnInit {
   orders: Order[] = [];
-  constructor(private orderService: OrderService) { }
+
+  constructor(private order: OrderService) { }
 
   ngOnInit(): void {
-    this.orderService.orders$.subscribe((data => {
+    this.order.orders$.subscribe((data => {
       this.orders = data;
     }));
-    this.orderService._getOrders();
+    this.order.getOrders();
   }
-  deleteOrders(id: any): void {
-    this.orderService._deleteOrders(id).subscribe((data) => {
+
+  _deleteOrders(id: any): void {
+    this.order.deleteOrders(id).subscribe((data) => {
       console.log(data);
-      this.orderService._getOrders();
+      this.order.getOrders();
     })
   }
 }

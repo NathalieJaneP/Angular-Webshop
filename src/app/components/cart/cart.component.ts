@@ -8,36 +8,31 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cart: Product[] = [];
-  cartQty: number = 0;
+  cartList: Product[] = [];
   sumTotal: number = 0;
+  cartQty: number = 0;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cart: CartService) { }
 
   ngOnInit(): void {
-    this.cart = this.cartService._getCart();
-    this.sumTotal = this.cartService._getTotalSum();
-    this.cartQty = this.cart.length;
+    this.cartList = this.cart.getCart();
+    this.sumTotal = this.cart.getTotalSum();
+    this.cartQty = this.cart.getQty();
   }
 
-  getCart() {
-    this.cartService._getCart();
-    // this.sumTotal = this.cartService._getTotalSum();
+  _getCart() {
+    this.cart.getCart();
   }
 
-  //lägg till_
-  removeCartItem(item: any) {
-    this.cartService._removeCartItem(item);
-    this.sumTotal = this.cartService._getTotalSum();
-    //förkorta
-    this.cartQty = this.cart.length;
-  }
-
-  //Fixa uppdatering
-  emptyCart() {
-    this.cartService._emptyCart();
+  _removeCartItem(item: any) {
+    this.cart.removeCartItem(item);
+    this.sumTotal = this.cart.getTotalSum();
+    this.cartQty = this.cart.getQty();
   }
 
 
-
+  _emptyCart() {
+    this.cart.emptyCart();
+    this.cartList = [];
+  }
 }
