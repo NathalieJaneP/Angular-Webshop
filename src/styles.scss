@@ -5,6 +5,10 @@ body{
     font-family: "Montserrat", sans-serif;
     font-weight: 300;
 
+    button{
+        cursor: pointer;
+    }
+    
     .container{
         margin-left: 100px;
         display: flex;

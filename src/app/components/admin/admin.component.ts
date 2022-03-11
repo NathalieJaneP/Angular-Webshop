@@ -20,8 +20,7 @@ export class AdminComponent implements OnInit {
   }
 
   _deleteOrders(id: any): void {
-    this.order.deleteOrders(id).subscribe((data) => {
-      console.log(data);
+    this.order.deleteOrders(id).subscribe(() => {
       this.order.getOrders();
     })
   }

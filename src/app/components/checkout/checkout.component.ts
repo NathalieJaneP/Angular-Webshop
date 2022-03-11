@@ -15,11 +15,10 @@ export class CheckoutComponent implements OnInit {
   order: Order = new Order();
   cartList: Product[] = this.cart.getCart();
 
-  //Lägg till required + fler alternativ
   userForm = this.form.group({
-    name: ['', Validators.required],
-    address: '',
-    payment: ['']
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    address: ['', Validators.required],
+    payment: ['', Validators.required]
   });
 
   constructor(
@@ -31,21 +30,17 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void { }
 
   createOrder() {
-    //lägg till amount för samma film
     this.order.orderRows = [];
     for (let i = 0; i < this.cartList.length; i++) {
       let orderInfo = new OrderRows(
         this.cartList[i].id,
         this.cartList[i].quantity);
-      this.order.orderRows.push(orderInfo)
-      console.log(orderInfo);
+      this.order.orderRows.push(orderInfo);
     }
 
-    // New Order <= Form
     this.order.createdBy = this.userForm.value.name;
     this.order.paymentMethod = this.userForm.value.payment;
     this.order.totalPrice = this.cart.getTotalSum();
-    console.log(this.order)
   }
 
   onSubmit(): void {
@@ -58,5 +53,6 @@ export class CheckoutComponent implements OnInit {
 
     this.cartList = this.cart.emptyCart();
     this.userForm.reset();
+    alert("Your order is complete");
   }
 }

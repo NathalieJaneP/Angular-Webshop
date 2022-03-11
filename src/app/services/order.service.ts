@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Order } from '../models/Order';
-import { Product } from '../models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +10,8 @@ import { Product } from '../models/Product';
 export class OrderService {
   private orders = new Subject<Order[]>();
   orders$ = this.orders.asObservable();
-  //ta bort
-  cartList: Product[] = [];
 
   constructor(private http: HttpClient) { }
-
 
   postOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(environment.ordersUrl, order);

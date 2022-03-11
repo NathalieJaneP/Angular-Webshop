@@ -1,4 +1,8 @@
 <div class="container">
+    <div *ngIf="orders.length===0">
+        <h1>No orders</h1>
+    </div>
+
     <div *ngFor="let order of orders">
         <div class="table-container">
             <table>

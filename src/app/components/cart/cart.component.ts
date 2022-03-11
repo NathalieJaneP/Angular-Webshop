@@ -30,7 +30,6 @@ export class CartComponent implements OnInit {
     this.cartQty = this.cart.getQty();
   }
 
-
   _emptyCart() {
     this.cart.emptyCart();
     this.cartList = [];
